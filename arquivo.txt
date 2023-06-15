@@ -1,0 +1,367 @@
+Algoritmo "Perguntas e respostas"
+// Disciplina   : [Algorítimo e lógica da programação]
+// Descrição   : JOGO COM 10 PERGUNTAS SOBRE A DISCIPLINA CADA ACERTO VALE 10 OU 5 PONTOS 10 PONTOS NA PRIMEIRA TENTATIVA 5 PONTOS NA SEGUNDA TENTATIVA  0 PONTOS SE ERRAR AS DUAS TENTATIVAS.
+// Autor(a)    : Rayani de Souza Novais
+// Data atual  : 6/15/2023
+
+var
+resposta : caractere
+pontos, c: inteiro
+pergunta : vetor [1..10] de caractere
+respostas: vetor [1..30] de caractere
+correta  : vetor [1..10] de caractere
+tentativa: inteiro
+contador : inteiro
+situacao : caractere
+
+// FAZER A PERGUNTA
+procedimento perguntar(p, r1 : inteiro)
+
+    var i, r2 : inteiro
+
+inicio
+
+       escreval("QUESTÃO " , p)
+       escreval(pergunta[p])
+       escreval("") // linha em branco
+
+       r2 <- r1 + 2 // definir limite da letra C de cada questão
+
+       para i de r1 ate r2 passo 1 faca
+           escreval(respostas[i])
+       fimpara
+
+       escreva("QUAL É A LETRA DA SUA RESPOSTA? ")
+       leia(resposta)
+
+fimprocedimento
+// FIM FAZER A PERGUNTA
+
+// PONTUAR
+procedimento pontuar(q : inteiro)
+
+    inicio
+
+    // ler resposta
+    se (resposta <> correta[q]) e (tentativa = 1) entao
+       escreval("Errou na 1ª tentativa")
+       tentativa <- 2
+    senao
+         se (resposta <> correta[q]) e (tentativa = 2) entao
+             escreval("Errou na 2ª tentativa")
+             // chamar proxima questao
+         fimse
+    fimse
+
+    se (resposta = correta[q]) e (tentativa = 1) entao
+       escreval("")
+       escreval("[ Parabéns, você Acertou na 1ª tentativa! ]")
+       escreval("")
+       pontos <- pontos + 10
+       // chamar proxima questao
+       senao
+          se (resposta = correta[q]) e (tentativa = 2) entao
+             escreval("")
+             escreval("[ Parabéns, você Acertou na 2ª tentativa! ]")
+             escreval("")
+             pontos <- pontos + 5
+             // chamar proxima questao
+          senao
+             escreval("")
+             escreval("[ Que pena, você Errou! ]")
+             escreval("")
+          fimse
+    fimse
+
+fimprocedimento
+// FIM PONTUAR
+
+inicio
+pontos    <- 0 // INICIAR O PLACAR
+tentativa <- 1
+
+// ABERTURA DO JOGO QUIZ
+escreval("****************** Jogo Quiz *******************")
+escreval(" Leia cada questão, responda com a letra")
+escreval(" da alternativa que você acredita ser a correta!")
+escreval(" Para SAIR antes de finalizar o jogo pressione a tecla [ESC]")
+escreval(" Autor: Rayani de Souza Novais")
+escreval("*************************************************************")
+
+// BANCO DE QUESTÕES
+ pergunta[1] <- "Qual é o dispositivo padrão de entrada de dados?"
+respostas[1] <- "(A) Memória RAM"
+respostas[2] <- "(B) Teclado"
+respostas[3] <- "(C) Monitor"
+  correta[1]  <- "B"
+
+ pergunta[2] <- "Qual é a palavra reservada para o processo de entrada de dados?"
+respostas[4] <- "(A) Escrita"
+respostas[5] <- "(B) Impressão"
+respostas[6] <- "(C) Leia"
+  correta[2]  <- "C"
+
+ pergunta[3] <- "O que é uma saída de dados ?"
+respostas[7] <- "(A) Passar informação ao algorítimo para receber dados."
+respostas[8] <- "(B) Passar informação aos dados para receber respostas"
+respostas[9] <- "(C) É uma unidade que caracteriza um componente"
+  correta[3]  <- "A"
+
+ pergunta[4]  <- "O componente monitor pode ser considerado uma:"
+respostas[10] <- "(A) Entrada de dados"
+respostas[11] <- "(B) Saída de dados"
+respostas[12] <- "(C) Estrutura de dados"
+  correta[4]  <- "B"
+
+ pergunta[5]  <- "A palavra reservada Para, Fimpara é de qual estrutura?"
+respostas[13] <- "(A) Repetição contada"
+respostas[14] <- "(B) Decisão simples"
+respostas[15] <- "(C) Estrutura de dados"
+  correta[5]  <- "A"
+
+ pergunta[6]  <- "Qual é a palavra reservada para saída de dados?"
+respostas[16] <- "(A) Digite"
+respostas[17] <- "(B) Comece"
+respostas[18] <- "(C) Escreva"
+  correta[6]  <- "C"
+
+ pergunta[7]  <- "Quais são as palavras reservadas de uma estrutura de decisão simples?"
+respostas[19] <- "(A) Fim,Começo,Final"
+respostas[20] <- "(B) Se,Então,Fimse"
+respostas[21] <- "(C) Const,var,print"
+  correta[7]  <- "B"
+
+ pergunta[8]  <- "A palavra reservada da estrutura de decisão multipla, é:"
+respostas[22] <- "(A) Escolha, Caso, Casocontrário, Fimescolha"
+respostas[23] <- "(B) Caso, Desenvolvimento, Fimse, Análise"
+respostas[24] <- "(C) Escolha, Caso, Fimse, Const"
+  correta[8]  <- "A"
+
+ pergunta[9]  <- "A repetição condicional e repetição contada se divide em qual estrutura?"
+respostas[25] <- "(A) Estrutura de dados"
+respostas[26] <- "(B) Estrutura de decisão simples"
+respostas[27] <- "(C) Estrutura de controle de fluxo"
+  correta[9]  <- "C"
+
+ pergunta[10] <- "O comando de saída é uma:"
+respostas[28] <- "(A) Uma interação com o usuário."
+respostas[29] <- "(B) Informação mostrada para o usuário, sem interação."
+respostas[30] <- "(C) É um informativo com perguntas para o sistema e o usuário."
+  correta[10] <- "B"
+
+// GAME PLAY perguntar e pontuar
+// 1a pergunta
+se (tentativa = 1) entao
+	perguntar(1, 1)
+	pontuar(1)
+fimse
+
+// errou na 1a tentativa
+se (resposta <> correta[1]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(1, 1)
+	pontuar(1)
+fimse
+
+se (resposta = correta[1]) ou (resposta <> correta[1]) entao
+	perguntar(2, 4)
+	pontuar(2)
+	tentativa <- 1
+fimse
+// fim 1a pergunta
+
+// 2a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[2]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(2, 4)
+	pontuar(2)
+fimse
+
+se (resposta = correta[2]) ou (resposta <> correta[2]) entao
+	perguntar(3, 7)
+	pontuar(3)
+	tentativa <- 1
+fimse
+// fim 2a pergunta
+
+// 3a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[3]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(3, 7)
+	pontuar(3)
+fimse
+
+se (resposta = correta[3]) ou (resposta <> correta[3]) entao
+	perguntar(4, 10)
+	pontuar(4)
+	tentativa <- 1
+fimse
+// fim 3a pergunta
+
+// 4a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[4]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(4, 10)
+	pontuar(4)
+fimse
+
+se (resposta = correta[4]) ou (resposta <> correta[4]) entao
+	perguntar(5, 13)
+	pontuar(5)
+	tentativa <- 1
+fimse
+// fim 4a pergunta
+
+// 5a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[5]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(5, 13)
+	pontuar(5)
+fimse
+
+se (resposta = correta[5]) ou (resposta <> correta[5]) entao
+	perguntar(6, 16)
+	pontuar(6)
+	tentativa <- 1
+fimse
+// fim 5a pergunta
+
+// 6a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[6]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(6, 16)
+	pontuar(6)
+fimse
+
+se (resposta = correta[6]) ou (resposta <> correta[6]) entao
+	perguntar(7, 19)
+	pontuar(7)
+	tentativa <- 1
+fimse
+// fim 6a pergunta
+
+// 7a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[7]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(7, 19)
+	pontuar(7)
+fimse
+
+se (resposta = correta[7]) ou (resposta <> correta[7]) entao
+	perguntar(8, 22)
+	pontuar(8)
+	tentativa <- 1
+fimse
+// fim 7a pergunta
+
+// 8a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[8]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(8, 22)
+	pontuar(8)
+fimse
+
+se (resposta = correta[8]) ou (resposta <> correta[8]) entao
+	perguntar(9, 25)
+	pontuar(9)
+	tentativa <- 1
+fimse
+// fim 8a pergunta
+
+// 9a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[9]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(9, 25)
+	pontuar(9)
+fimse
+
+se (resposta = correta[9]) ou (resposta <> correta[9]) entao
+	perguntar(10, 28)
+	pontuar(10)
+	tentativa <- 1
+fimse
+// fim 9a pergunta
+
+// 10a pergunta
+// errou na 1a tentativa
+se (tentativa = 1) e (resposta <> correta[10]) entao
+	tentativa <- 2
+fimse
+//2a tentativa
+se (tentativa = 2) entao
+ 	perguntar(10, 28)
+	pontuar(10)
+fimse
+
+se (resposta = correta[10]) ou (resposta <> correta[10]) entao
+   escreval("FIM DO JOGO!")
+   // exibir placar
+fimse
+// fim 10a pergunta
+
+// conceito
+se (pontos < 24) entao
+   situacao <- "Péssimo"
+fimse
+
+se (pontos >= 25) e (pontos <= 49) entao
+   situacao <- "Regular"
+fimse
+
+se (pontos >= 50) e (pontos <= 74) entao
+   situacao <- "Bom"
+fimse
+
+se (pontos >=75) e (pontos <= 99) entao
+   situacao <- "Ótimo"
+fimse
+
+se (pontos >= 100) entao
+   situacao <- "Excelente"
+fimse
+
+// PLACAR FINAL
+escreval("")
+escreval("***********************************")
+escreval("*           PLACAR FINAL          *")
+escreval("   Você ganhou ", pontos ," pontos!")
+escreval("            ", situacao ,"         ")
+escreval("*                                 *")
+escreval("***********************************")
+
+fimalgoritmo
